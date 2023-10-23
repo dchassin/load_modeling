@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.1.34"
+__generated_with = "0.1.35"
 app = marimo.App(width="full", layout_file="layouts/fit_model.grid.json")
 
 
@@ -70,9 +70,10 @@ def __(columns, mo):
 
 
 @app.cell
-def __(data, input_field, mo, output_field, plot_data):
+def __(data, input_field, output_field, plot_data):
     fig1 = plot_data(data,[output_field.value,input_field.value])
-    mo.mpl.interactive(fig1)
+    # mo.mpl.interactive(fig1)
+    fig1
     return fig1,
 
 
@@ -133,7 +134,6 @@ def __(mo):
 @app.cell
 def __(
     input_field,
-    mo,
     output_field,
     pd,
     plot_data,
@@ -144,7 +144,8 @@ def __(
     test = pd.read_csv("test.csv", index_col=["t"], parse_dates=[0])
     test = test.join(predict_tf(tf,test,"F").set_index(time_field.value),on=time_field.value)
     fig2 = plot_data(test,[output_field.value,"F",input_field.value]) 
-    mo.mpl.interactive(fig2)
+    #mo.mpl.interactive(fig2) 
+    fig2
     return fig2, test
 
 
